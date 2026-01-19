@@ -61,7 +61,7 @@
 | category_id | カテゴリーID |
 | parent_category_id | 親カテゴリーID（NULL=親） |
 | category_name | カテゴリー名 |
-| type | INCOME / OUTGO |
+| type | INCOME / EXPENSE |
 | icon_key | 親カテゴリー用アイコン |
 | sort_order | 表示順 |
 | is_active | 有効フラグ |
