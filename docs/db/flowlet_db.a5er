@@ -1,0 +1,68 @@
+﻿# A5:ER FORMAT:19
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.20.4 Copyright © 1997 - 2025 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=flowlet_db
+Author=
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=7
+RDBMSTypeName=PostgreSQL
+CommonField="作成者","created_by","character varying(10)","NOT NULL",,"\qsystem\q","",$FFFFFFFF
+CommonField="作成日","created_at","timestamp(6) without time zone","NOT NULL",,"current_timestamp","",$FFFFFFFF
+CommonField="更新者","updated_by","character varying(10)","NOT NULL",,"\qsystem\q","",$FFFFFFFF
+CommonField="更新日","updated_at","timestamp(6) without time zone",,,"current_timestamp","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=0
+ShowTag=1
+ShowCommonAttributes=0
+BugFixEntityWidth=1
+
+[Entity]
+PName=flowlet.m_category
+LName=カテゴリー
+Comment=
+TableInnerOption=
+TableOption=
+Page=Main
+Left=250
+Top=200
+Field="カテゴリーID","category_id","character varying(5)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="親カテゴリーID","parent_category_id","character varying(5)",,,"","",$FFFFFFFF,""
+Field="カテゴリー名","category_name","character varying(50)","NOT NULL",,"","",$FFFFFFFF,""
+Field="収支区分","flow_type","character varying(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="カテゴリー用アイコン","icon_key","character varying(50)",,,"","",$FFFFFFFF,""
+Field="表示順","sort_order","integer",,,"","",$FFFFFFFF,""
+Field="有効フラグ","is_active","boolean","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Tag=M001
+Color=$000000
+BkColor=$C0DCC0
+ModifiedDateTime=20260119234728
+Position="Main",250,200
+ZOrder=1
