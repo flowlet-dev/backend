@@ -76,7 +76,7 @@ LName=口座
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=250
 Top=550
 Field="口座ID","account_id","character varying(10)","NOT NULL",0,"","",$FFFFFFFF,""
@@ -89,7 +89,7 @@ Tag=M002
 Color=$000000
 BkColor=$C0DCC0
 ModifiedDateTime=20260120223734
-Position="Main",250,550
+Position="MAIN",250,550
 ZOrder=2
 
 [Entity]
@@ -98,7 +98,7 @@ LName=仮想口座
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=250
 Top=800
 Field="仮想口座ID","virtual_account_id","character varying(10)","NOT NULL",0,"","",$FFFFFFFF,""
@@ -110,7 +110,7 @@ Tag=M003
 Color=$000000
 BkColor=$C0DCC0
 ModifiedDateTime=20260120224115
-Position="Main",250,800
+Position="MAIN",250,800
 ZOrder=3
 
 [Entity]
@@ -119,7 +119,7 @@ LName=設定
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=250
 Top=1100
 Field="設定ID","setting_id","character varying(10)","NOT NULL",0,"","",$FFFFFFFF,""
@@ -130,7 +130,7 @@ Tag=M004
 Color=$000000
 BkColor=$C0DCC0
 ModifiedDateTime=20260120224250
-Position="Main",250,1100
+Position="MAIN",250,1100
 ZOrder=4
 
 [Entity]
@@ -139,18 +139,18 @@ LName=給料日設定
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=700
 Top=1100
-Field="給料日設定ID","setting_saraly_id","character varying(10)","NOT NULL",0,"","",$FFFFFFFF,""
+Field="給料日設定ID","setting_salary_id","character varying(10)","NOT NULL",0,"","",$FFFFFFFF,""
 Field="給料日","payday","integer","NOT NULL",,"","",$FFFFFFFF,""
 Field="土日祝対応種別","adjust_type","character varying(20)","NOT NULL",,"","PREVIOUS_DAY / NEXT_DAY / ON_THAT_DAY",$FFFFFFFF,""
 EffectMode=None
 Tag=M005
 Color=$000000
 BkColor=$C0DCC0
-ModifiedDateTime=20260120224613
-Position="Main",700,1100
+ModifiedDateTime=20260121011349
+Position="MAIN",700,1100
 ZOrder=5
 
 [Relation]
@@ -180,7 +180,7 @@ LName=取引
 Comment=
 TableInnerOption=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1350
 Top=200
 Field="取引ID","transaction_id","character varying(10)","NOT NULL",0,"","",$FFFFFFFF,""
@@ -196,7 +196,7 @@ Tag=T001
 Color=$000000
 BkColor=$F0CAA6
 ModifiedDateTime=20260120225200
-Position="Main",1350,200
+Position="MAIN",1350,200
 ZOrder=7
 
 [Relation]
