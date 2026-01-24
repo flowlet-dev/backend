@@ -1,48 +1,64 @@
 package com.example.flowlet.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "m_category", schema = "flowlet")
+@Table(name = "m_categories", schema = "flowlet", indexes = {
+        @Index(name = "idx_m_categories_user_id",
+                columnList = "user_id"),
+        @Index(name = "idx_m_categories_parent_category_id",
+                columnList = "parent_category_id")})
 public class MCategory extends BaseEntity {
     @Id
-    @Size(max = 5)
-    @Column(name = "category_id", nullable = false, length = 5)
+    @Size(max = 10)
+    @ColumnDefault("('CAT'::text || lpad((nextval('flowlet.seq_m_categories')), 7, '0'))")
+    @Column(name = "category_id", nullable = false, length = 10)
     private String categoryId;
 
-    @Size(max = 5)
-    @Column(name = "parent_category_id", length = 5)
-    private String parentCategoryId;
+    @Size(max = 10)
+    @Column(name = "user_id", length = 10)
+    private String userId;
 
-    @Size(max = 50)
+    @Size(max = 100)
     @NotNull
-    @Column(name = "category_name", nullable = false, length = 50)
+    @Column(name = "category_name", nullable = false, length = 100)
     private String categoryName;
 
-    @Size(max = 10)
+    @Size(max = 20)
     @NotNull
-    @Column(name = "flow_type", nullable = false, length = 10)
-    private String flowType;
+    @Column(name = "category_type", nullable = false, length = 20)
+    private String categoryType;
 
-    @Size(max = 50)
-    @Column(name = "icon_key", length = 50)
-    private String iconKey;
-
-    @Column(name = "sort_order")
-    private Integer sortOrder;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_category_id")
+    private MCategory parentCategory;
 
     @NotNull
-    @Column(name = "is_active", nullable = false)
-    private Boolean isActive;
+    @ColumnDefault("false")
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted;
+
+    @OneToMany(mappedBy = "parentCategory")
+    private Set<MCategory> mCategories = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "category")
+    private Set<MRecurringExpens> mRecurringExpenses = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "category")
+    private Set<TBudget> tBudgets = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "category")
+    private Set<TTransaction> tTransactions = new LinkedHashSet<>();
 
 
 }
