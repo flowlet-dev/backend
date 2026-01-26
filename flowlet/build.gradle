@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '4.0.1'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'org.openapi.generator' version '7.19.0'
 }
 
 group = 'com.example'
@@ -29,13 +28,14 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    implementation 'io.swagger.core.v3:swagger-annotations:latest.release'
-    implementation 'org.openapitools:jackson-databind-nullable:latest.release'
+    implementation 'org.mapstruct:mapstruct:1.6.3'
     implementation 'jakarta.validation:jakarta.validation-api:latest.release'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
     testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
@@ -45,27 +45,3 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-openApiGenerate {
-    generatorName = "spring"
-    inputSpec = "C:\\Users\\jacks\\Documents\\flowlet\\backend\\flowlet\\flowlet-api.yaml".toString() // yamlのパスを指定
-    outputDir = layout.buildDirectory.dir("generated").get().asFile.toString()
-    apiPackage = "com.example.flowlet.api.v1.controllers"
-    modelPackage = "com.example.flowlet.v1.dtos"
-    configOptions = [
-            interfaceOnly: "true",      // インターフェースのみ生成（実装は自分で行う）
-            useSpringBoot3: "true",     // Spring Boot 3系を使用（Jakarta EE対応）
-            openApiNullable: "false",   // 必要に応じて設定
-            skipDefaultInterface: "true"
-    ]
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs += [layout.buildDirectory.dir("generated/src/main/java").get().asFile.toString()]
-        }
-    }
-}
-
-compileJava.dependsOn tasks.openApiGenerate
