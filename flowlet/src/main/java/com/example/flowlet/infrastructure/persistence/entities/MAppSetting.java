@@ -1,4 +1,4 @@
-package com.example.flowlet.entities;
+package com.example.flowlet.infrastructure.persistence.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

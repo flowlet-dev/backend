@@ -1,4 +1,4 @@
-package com.example.flowlet.entities;
+package com.example.flowlet.infrastructure.persistence.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
