@@ -3,6 +3,7 @@
 ## 1. 基本方針
 * **保守性優先**: 短期的な実装スピードよりも、読みやすさと修正のしやすさを重視する。
 * **APIファースト**: API仕様（OpenAPI/Swagger）を正とし、自動生成されたインターフェースを元に実装を行う。
+    * **自動生成の活用**: `openapi-generator` 等のツールで生成される `Api` インターフェースを Controller で実装（`implements`）し、メソッド定義の乖離を防ぐ。
 * **ドメイン駆動設計 (DDD) の意識**: 
     * ビジネスロジックはドメインモデル（EntityやValue Object）に持たせ、Service層が単なる「手続き」の羅列にならないよう設計する。
     * オブジェクトは常に正しい状態を保つよう、ドメイン層で整合性を担保する。
@@ -48,3 +49,14 @@ DDDの考え方を取り入れた以下の4層構造を基本とする：
 * **レビュー・改善提案**: 
     * パフォーマンス懸念（N+1問題など）や、DDDの観点からドメインモデルに移動すべきロジックがあれば積極的に指摘すること。
     * 既存Entityの変更時は、影響範囲（Repository、DTO、テスト）を網羅的に確認し、修正案を提示すること。
+
+## 8. API定義とOpenAPIアノテーション
+OpenAPI Generator との整合性を保ち、かつドキュメントとしての正確性を維持するため、以下のルールを遵守する。
+
+* **Controller の実装**:
+    * 自動生成された `...Api` インターフェースを実装し、`@Override` を付与してメソッドを定義する。
+    * APIのメタデータ（`@Tag`, `@Operation` など）は、可能な限り生成されたインターフェース側に持たせ、Controller 実装側はロジックの呼び出しに集中する。
+* **DTO (Data Transfer Object)**:
+    * **アノテーションの付与**: `@Schema` を使用して、物理名だけでなく論理名（description）やバリデーション制約（example, minLength, maxLength 等）を明記する。
+    * **バリデーション**: `jakarta.validation.constraints`（`@NotBlank`, `@Size`, `@NotNull` 等）を適切に使用し、OpenAPI 定義と Java 側のバリデーションを同期させる。
+    * **JSON制御**: 必要に応じて `@JsonInclude(JsonInclude.Include.NON_NULL)` 等を使用し、APIレスポンスの制御を明示する。
