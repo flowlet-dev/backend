@@ -2,6 +2,7 @@ package com.example.flowlet.application.services;
 
 import com.example.flowlet.api.dtos.AccountDto;
 import com.example.flowlet.api.dtos.AccountRequestDto;
+import com.example.flowlet.api.exceptions.NotFoundException;
 import com.example.flowlet.domain.models.entities.Account;
 import com.example.flowlet.domain.repositories.AccountRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,25 @@ public class AccountService {
         );
 
         accountRepository.save(account);
+
+        return new AccountDto(account);
+
+    }
+
+    /**
+     * 口座を取得する
+     *
+     * @param accountId   取得する口座ID
+     * @param loginUserId ログインユーザーID
+     * @return 指定した口座IDの口座情報
+     */
+    public AccountDto getAccount(String accountId, String loginUserId) throws NotFoundException {
+
+        Account account = accountRepository.findByAccountId(accountId);
+
+        if (account == null) {
+            throw new NotFoundException("error.account_not_found.message");
+        }
 
         return new AccountDto(account);
 

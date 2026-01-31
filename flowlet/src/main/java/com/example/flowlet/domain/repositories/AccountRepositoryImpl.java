@@ -31,6 +31,15 @@ public class AccountRepositoryImpl implements AccountRepository {
      * {@inheritDoc}
      */
     @Override
+    public Account findByAccountId(String accountId) {
+        MAccount mAccount = accountJpaRepository.findByAccountId(accountId);
+        return accountMapper.toDomain(mAccount);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Account> findByUserId(String userId) {
         List<MAccount> mAccounts = accountJpaRepository.findByUserId(userId);
         return accountMapper.toDomainList(mAccounts);

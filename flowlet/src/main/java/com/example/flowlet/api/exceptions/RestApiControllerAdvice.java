@@ -6,9 +6,11 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -20,6 +22,7 @@ import java.util.Objects;
 public class RestApiControllerAdvice extends ResponseEntityExceptionHandler {
 
     private final MessageSource messageSource;
+
 
     @Override
     protected @Nullable ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -33,6 +36,14 @@ public class RestApiControllerAdvice extends ResponseEntityExceptionHandler {
                         .getFieldError())
                 .getDefaultMessage();
         return ResponseEntity.badRequest().body(new ErrorDto(code, message));
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
+        String code = messageSource.getMessage("error.not_found.code", null, null);
+        String message = messageSource.getMessage(ex.getMessage(), null, null);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDto(code, message));
     }
 
     @Override
@@ -53,5 +64,6 @@ public class RestApiControllerAdvice extends ResponseEntityExceptionHandler {
         return super.handleExceptionInternal(ex, new ErrorDto(code, message), headers, statusCode, request);
 
     }
+
 
 }

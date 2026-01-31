@@ -14,6 +14,8 @@ public interface AccountJpaRepository extends JpaRepository<MAccount, String> {
     @NativeQuery("SELECT 'ACC' || lpad(cast(nextval('flowlet.seq_m_accounts') as character varying), 7, '0');")
     String generateAccountId();
 
+    MAccount findByAccountId(String accountId);
+
     List<MAccount> findByUserId(String loginUserId);
 
 }

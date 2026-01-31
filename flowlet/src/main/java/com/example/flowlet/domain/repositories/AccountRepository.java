@@ -17,6 +17,14 @@ public interface AccountRepository {
     String generateAccountId();
 
     /**
+     * 口座IDで口座を検索する
+     *
+     * @param accountId 口座ID
+     * @return 指定した口座IDの口座情報
+     */
+    Account findByAccountId(String accountId);
+
+    /**
      * ユーザーIDで口座を検索する
      *
      * @param loginUserId ログインユーザーID

@@ -2,6 +2,7 @@ package com.example.flowlet.api.controllers;
 
 import com.example.flowlet.api.dtos.AccountDto;
 import com.example.flowlet.api.dtos.AccountRequestDto;
+import com.example.flowlet.api.exceptions.NotFoundException;
 import com.example.flowlet.application.services.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -59,6 +60,24 @@ public class AccountController {
                 .toUri();
 
         return ResponseEntity.created(location).body(responseBody);
+
+    }
+
+    /**
+     * 口座取得API
+     *
+     * @param accountId 取得する口座ID
+     * @return 指定した口座IDの口座情報
+     */
+    @Operation(summary = "口座取得API", description = "指定した口座IDの口座情報を取得")
+    @GetMapping(path = "/{accountId}", produces = "application/json")
+    public ResponseEntity<AccountDto> getAccount(@PathVariable String accountId) throws NotFoundException {
+
+        String loginUserId = "0000000001";
+
+        AccountDto responseBody = accountService.getAccount(accountId, loginUserId);
+
+        return ResponseEntity.ok(responseBody);
 
     }
 

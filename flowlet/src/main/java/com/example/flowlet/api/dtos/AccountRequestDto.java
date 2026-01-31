@@ -19,17 +19,17 @@ import java.math.BigDecimal;
 public class AccountRequestDto {
 
     @Schema(description = "口座名", example = "口座名", minLength = 1, maxLength = 100)
-    @NotBlank(message = "{error.account.unspecified_account_name}")
-    @Size(max = 100, message = "{error.account.invalid_account_name_length}")
+    @NotBlank(message = "{error.unspecified_account_name.message}")
+    @Size(max = 100, message = "{error.invalid_account_name_length.message}")
     private String accountName;
 
     @Schema(description = "初期残高", example = "10000.00")
-    @NotNull(message = "{error.account.unspecified_initial_balance}")
-    @Min(value = 0, message = "{error.account.invalid_initial_balance}")
+    @NotNull(message = "{error.unspecified_initial_balance.message}")
+    @Min(value = 0, message = "{error.invalid_initial_balance.message}")
     private BigDecimal initialBalance;
 
     @Schema(description = "貯金用口座フラグ", example = "true")
-    @NotNull(message = "{error.account.unspecified_is_savings_account}")
+    @NotNull(message = "{error.unspecified_is_savings_account.message}")
     private Boolean isSavingsAccount;
 
 }
