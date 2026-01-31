@@ -10,11 +10,25 @@ import java.util.List;
 public interface AccountRepository {
 
     /**
+     * 口座IDを生成する
+     *
+     * @return 生成した口座ID
+     */
+    String generateAccountId();
+
+    /**
      * ユーザーIDで口座を検索する
      *
      * @param loginUserId ログインユーザーID
      * @return 口座一覧
      */
     List<Account> findByUserId(String loginUserId);
+
+    /**
+     * 口座を保存する
+     *
+     * @param account 保存する口座
+     */
+    void save(Account account);
 
 }

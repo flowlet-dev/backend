@@ -16,7 +16,6 @@ import java.math.BigDecimal;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountDto {
 
-
     @Schema(description = "口座ID", example = "ACC0000001")
     private String accountId;
 
@@ -38,11 +37,11 @@ public class AccountDto {
      * @param account Accountエンティティ
      */
     public AccountDto(Account account) {
-        this.accountId = account.accountId();
-        this.accountName = account.accountName();
-        this.initialBalance = account.initialBalance();
-        this.currentBalance = account.currentBalance();
-        this.isSavingsAccount = account.isSavingsAccount();
+        this.accountId = account.getAccountId();
+        this.accountName = account.getAccountName();
+        this.initialBalance = account.getInitialBalance();
+        this.currentBalance = account.getCurrentBalance();
+        this.isSavingsAccount = account.getIsSavingsAccount();
     }
 
 }

@@ -1,15 +1,17 @@
 package com.example.flowlet.api.controllers;
 
 import com.example.flowlet.api.dtos.AccountDto;
+import com.example.flowlet.api.dtos.AccountRequestDto;
 import com.example.flowlet.application.services.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -33,6 +35,30 @@ public class AccountController {
 
         List<AccountDto> responseBody = accountService.getAccounts(loginUserId);
         return ResponseEntity.ok(responseBody);
+
+    }
+
+    /**
+     * 口座登録API
+     *
+     * @param request 口座登録リクエスト
+     * @return 登録した口座情報
+     */
+    @Operation(summary = "口座登録API", description = "口座を登録")
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<AccountDto> registerAccount(@Valid @RequestBody AccountRequestDto request) {
+
+        String loginUserId = "0000000001";
+
+        AccountDto responseBody = accountService.registerAccount(request, loginUserId);
+
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{accountId}")
+                .buildAndExpand(responseBody.getAccountId())
+                .toUri();
+
+        return ResponseEntity.created(location).body(responseBody);
 
     }
 
