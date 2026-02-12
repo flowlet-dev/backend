@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
-import java.time.LocalDate;
-
 /**
  * 収支登録リクエスト
  */
@@ -14,7 +12,7 @@ import java.time.LocalDate;
 public class TransactionRequest {
 
     @NotNull
-    private LocalDate transactionDate;
+    private String transactionDate;
 
     @Min(1)
     private int amount;

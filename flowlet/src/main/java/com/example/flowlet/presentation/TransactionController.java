@@ -7,6 +7,7 @@ import com.example.flowlet.presentation.dto.TransactionResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class TransactionController {
     public void register(@RequestBody @Valid TransactionRequest request) {
 
         transactionService.register(
-                request.getTransactionDate(),
+                LocalDate.parse(request.getTransactionDate()),
                 request.getAmount(),
                 request.getTransactionType(),
                 request.getMemo()
@@ -44,7 +45,7 @@ public class TransactionController {
         return tTransactions.stream()
                 .map(t -> new TransactionResponse(
                         t.getTransactionId(),
-                        t.getTransactionDate(),
+                        t.getTransactionDate().toString(),
                         t.getAmount(),
                         t.getTransactionType(),
                         t.getMemo()

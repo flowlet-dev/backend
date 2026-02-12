@@ -3,7 +3,6 @@ package com.example.flowlet.presentation.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 /**
@@ -14,7 +13,7 @@ import java.util.UUID;
 public class TransactionResponse {
 
     private UUID transactionId;
-    private LocalDate transactionDate;
+    private String transactionDate;
     private int amount;
     private String transactionType;
     private String memo;
