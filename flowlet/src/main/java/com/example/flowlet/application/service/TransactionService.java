@@ -93,7 +93,7 @@ public class TransactionService {
         long income = transactionJpaRepository.getSumByTransactionTypeAndPeriod("INCOME", from, to);
         long expenses = transactionJpaRepository.getSumByTransactionTypeAndPeriod("EXPENSE", from, to);
 
-        return new PeriodSummary(income, expenses);
+        return new PeriodSummary(income, expenses, from.toString(), to.minusDays(1).toString());
 
     }
 
