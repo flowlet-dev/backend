@@ -11,3 +11,6 @@ Content-Type: application/json
 
 ### 取引一覧取得
 GET http://localhost:8080/api/transactions
+
+### 今期集計API
+GET http://localhost:8080/api/transactions/summary/current

@@ -1,5 +1,5 @@
 ---
-applyTo: "*.java"
+apply: 常に使用する
 ---
 
 # Java ルール

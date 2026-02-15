@@ -2,6 +2,7 @@ package com.example.flowlet.presentation;
 
 import com.example.flowlet.application.service.TransactionService;
 import com.example.flowlet.infrastructure.persistence.entity.TTransaction;
+import com.example.flowlet.presentation.dto.PeriodSummary;
 import com.example.flowlet.presentation.dto.TransactionRequest;
 import com.example.flowlet.presentation.dto.TransactionResponse;
 import jakarta.validation.Valid;
@@ -51,6 +52,11 @@ public class TransactionController {
                         t.getMemo()
                 ))
                 .toList();
+    }
+
+    @GetMapping("/summary/current")
+    public PeriodSummary getCurrentPeriodSummary() {
+        return transactionService.getCurrentPeriodSummary();
     }
 
 }
