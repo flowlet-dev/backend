@@ -8,7 +8,6 @@ import com.example.flowlet.presentation.dto.TransactionResponse;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,7 +29,7 @@ public class TransactionController {
     public void register(@RequestBody @Valid TransactionRequest request) {
 
         transactionService.register(
-                LocalDate.parse(request.getTransactionDate()),
+                request.getTransactionDate(),
                 request.getAmount(),
                 request.getTransactionType(),
                 request.getMemo()
@@ -61,6 +60,18 @@ public class TransactionController {
 
     }
 
+    @PutMapping("/{transaction_id}")
+    public void update(@PathVariable("transaction_id") String transactionId, @RequestBody @Valid TransactionRequest request) {
+
+        transactionService.update(
+                transactionId,
+                request.getTransactionDate(),
+                request.getAmount(),
+                request.getTransactionType(),
+                request.getMemo()
+        );
+
+    }
 
     /**
      * 収支削除API

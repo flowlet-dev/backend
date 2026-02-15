@@ -30,7 +30,7 @@ public class TransactionService {
      * @param transactionType 取引種別
      * @param memo            メモ
      */
-    public void register(LocalDate transactionDate, int amount, String transactionType, String memo) {
+    public void register(String transactionDate, int amount, String transactionType, String memo) {
 
         if (amount <= 0) {
             throw new IllegalArgumentException("amount must be positive");
@@ -38,7 +38,7 @@ public class TransactionService {
 
         TTransaction tTransaction = new TTransaction(
                 UUID.randomUUID(),
-                transactionDate,
+                LocalDate.parse(transactionDate),
                 amount,
                 transactionType,
                 memo
@@ -79,6 +79,27 @@ public class TransactionService {
         PeriodSummary current = getPeriodSummary(currentSalaryDate, nextSalaryDate);
 
         return new PeriodSummaryResponse(current, previous);
+    }
+
+    /**
+     * 収支情報を更新する
+     *
+     * @param transactionId   収支ID
+     * @param transactionDate 収支日
+     * @param amount          金額
+     * @param transactionType 収支種別
+     * @param memo            メモ
+     */
+    public void update(String transactionId, String transactionDate, int amount, String transactionType, String memo) {
+
+        TTransaction tTransaction = transactionJpaRepository.findById(UUID.fromString(transactionId))
+                .orElseThrow(() -> new RuntimeException("Not Found"));
+
+        tTransaction.setTransactionDate(LocalDate.parse(transactionDate));
+        tTransaction.setAmount(amount);
+        tTransaction.setTransactionType(transactionType);
+        tTransaction.setMemo(memo);
+
     }
 
     /**

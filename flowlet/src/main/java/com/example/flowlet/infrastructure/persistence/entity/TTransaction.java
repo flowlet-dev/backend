@@ -8,11 +8,13 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -35,5 +37,6 @@ public class TTransaction extends BaseEntity {
 
     @Column(name = "memo", length = Integer.MAX_VALUE)
     private String memo;
+
 
 }
