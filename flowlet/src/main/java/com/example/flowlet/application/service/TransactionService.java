@@ -3,6 +3,7 @@ package com.example.flowlet.application.service;
 import com.example.flowlet.infrastructure.persistence.entity.TTransaction;
 import com.example.flowlet.infrastructure.persistence.repository.TransactionJpaRepository;
 import com.example.flowlet.presentation.dto.PeriodSummary;
+import com.example.flowlet.presentation.dto.PeriodSummaryResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,22 +62,39 @@ public class TransactionService {
     }
 
     /**
-     * 現在の期間の収支を取得する
+     * 現在の期間と前月の収支を取得する
      *
-     * @return 現在の期間の収支
+     * @return 現在の期間と前月の収支
      */
     @Transactional(readOnly = true)
-    public PeriodSummary getCurrentPeriodSummary() {
+    public PeriodSummaryResponse getCurrentAndPreviousPeriodSummaries() {
 
         LocalDate today = LocalDate.now();
 
+        LocalDate previousSalaryDate = calculateSalaryDate(today.minusMonths(1));
         LocalDate currentSalaryDate = calculateSalaryDate(today);
         LocalDate nextSalaryDate = calculateSalaryDate(today.plusMonths(1));
 
-        long income = transactionJpaRepository.getSumByTransactionTypeAndPeriod("INCOME", currentSalaryDate, nextSalaryDate);
-        long expenses = transactionJpaRepository.getSumByTransactionTypeAndPeriod("EXPENSE", currentSalaryDate, nextSalaryDate);
+        PeriodSummary previous = getPeriodSummary(previousSalaryDate, currentSalaryDate);
+        PeriodSummary current = getPeriodSummary(currentSalaryDate, nextSalaryDate);
+
+        return new PeriodSummaryResponse(current, previous);
+    }
+
+    /**
+     * 指定された期間の収支を取得する
+     *
+     * @param from 開始日
+     * @param to   終了日
+     * @return 指定された期間の収支
+     */
+    public PeriodSummary getPeriodSummary(LocalDate from, LocalDate to) {
+
+        long income = transactionJpaRepository.getSumByTransactionTypeAndPeriod("INCOME", from, to);
+        long expenses = transactionJpaRepository.getSumByTransactionTypeAndPeriod("EXPENSE", from, to);
 
         return new PeriodSummary(income, expenses);
+
     }
 
     /**
