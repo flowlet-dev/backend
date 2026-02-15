@@ -38,6 +38,12 @@ public class TransactionController {
 
     }
 
+
+    /**
+     * 収支一覧取得API
+     *
+     * @return 収支一覧
+     */
     @GetMapping
     public List<TransactionResponse> findAll() {
 
@@ -52,8 +58,25 @@ public class TransactionController {
                         t.getMemo()
                 ))
                 .toList();
+
     }
 
+
+    /**
+     * 収支削除API
+     *
+     * @param transactionId 収支ID
+     */
+    @DeleteMapping("/{transaction_id}")
+    public void delete(@PathVariable("transaction_id") String transactionId) {
+        transactionService.delete(transactionId);
+    }
+
+    /**
+     * 今期/前期集計API
+     *
+     * @return 集計一覧
+     */
     @GetMapping("/summary")
     public PeriodSummaryResponse getCurrentAndPreviousPeriodSummaries() {
         return transactionService.getCurrentAndPreviousPeriodSummaries();

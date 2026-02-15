@@ -82,6 +82,15 @@ public class TransactionService {
     }
 
     /**
+     * 指定された取引IDの収支を削除する
+     *
+     * @param transactionId 収支ID
+     */
+    public void delete(String transactionId) {
+        transactionJpaRepository.deleteById(UUID.fromString(transactionId));
+    }
+
+    /**
      * 指定された期間の収支を取得する
      *
      * @param from 開始日

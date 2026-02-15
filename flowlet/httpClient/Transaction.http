@@ -12,5 +12,8 @@ Content-Type: application/json
 ### 取引一覧取得
 GET http://localhost:8080/api/transactions
 
+### 取引削除
+DELETE http://localhost:8080/api/transactions/4593390e-5c7d-4946-af9a-869974ef71a1
+
 ### 今期/前期集計API
 GET http://localhost:8080/api/transactions/summary
